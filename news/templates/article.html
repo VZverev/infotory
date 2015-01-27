@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Новость | {{ entry.title }}
+{% endblock %}
+
+{% block body%}
+	<div>
+		<h1>{{entry.title}}</h1>
+		<small>{{ entry.pub_date}}</small>
+		{{entry.full_text|safe}}
+		<br />
+		Рейтинг:{{entry.get_raiting|safe}}
+		<div>
+			<h3>Комментарии</h3>
+			{% for comment in entry.comments.all %}
+			<div>
+				{% if comment.title %}
+				<h4>{{comment.title}}</h4>
+				{% else %}
+				<h4>Без заголовка</h4>
+				{% endif %}
+				<p>{{comment.text|safe}}</p>
+				<small>Автор: {{comment.author}} Дата: {{comment.pub_date}}</small>
+			</div>
+			{% empty %}
+			<p>Нет комментариев</p>
+			{% endfor %}
+		
+		</div>
+	</div>
+{% endblock %}

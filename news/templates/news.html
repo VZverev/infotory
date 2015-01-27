@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
+{% block body%}
+	{% for entry in entries %}
+	<div>
+		<hr />
+		<h1><a href="{{ entry.pk }}">{{entry.title}}</a></h1>
+		<small>Автор: {{entry.author}} Дата: {{entry.pub_date}}</small>
+		{{entry.short_text|safe}}
+		Комментариев: {{entry.comments.all|length}}
+		<p style="text-align: right; size: 4pt;">
+			Рейтинг:{{entry.get_raiting|safe}}
+			<br /><a href="{{ entry.pk }}">Читать дальше</a>
+		</p>
+		<hr />
+	</div>
+	{% endfor %}
+{% endblock %}

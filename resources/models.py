@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*- 
+import os
+from infotory.settings import MEDIA_ROOT
+from django.utils.crypto import get_random_string
 from django.db import models
 from tags.models import Tag
 
@@ -31,6 +34,13 @@ class Image(models.Model):
     show_image.short_description = u'Миниатюра'
     show_image.allow_tags = True
     
+    def show_tags(self):
+        if self.tag:
+            return "\n".join([t.title for t in self.tag.all()])
+        else:
+            return ""
+    show_tags.short_description = u'Тэги'
+    
 class File(models.Model):
     title = models.CharField(u'Название', max_length=40)
     file = models.FileField(u'Файл', upload_to=upload_file)
@@ -45,4 +55,14 @@ class File(models.Model):
         
     def __unicode__(self):
         return self.title
-
+    
+    def admin_file_info(self):
+        if self.file:
+            file_path = self.file.url
+            return file_path
+        else:
+            return "File not exist"
+            
+        
+    admin_file_info.short_description = u'Информация'
+    admin_file_info.allow_tags = True

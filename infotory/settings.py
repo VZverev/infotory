@@ -69,7 +69,7 @@ DATABASES = {
         'NAME': 'sitedb_mysql',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'site_mysql',
-        'PASSWORD': '3AU9LvDt',
+        'PASSWORD': 'Frct8kZT',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
 #       'PORT': '',                      # Set to empty string for default.
     }
@@ -93,6 +93,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 TEMPLATE_DIRS = (
                  '/var/www/getxe/data/infotory/templates',
+                 '/var/www/getxe/data/infotory/news/templates',
 )
 
 STATICFILES_DIRS = (
