@@ -69,7 +69,7 @@ DATABASES = {
         'NAME': 'sitedb_mysql',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'site_mysql',
-        'PASSWORD': 'Frct8kZT',
+        'PASSWORD': 'c71n4HyH',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
 #       'PORT': '',                      # Set to empty string for default.
     }
@@ -95,18 +95,18 @@ TEMPLATE_DIRS = (
                  '/var/www/getxe/data/infotory/templates',
                  '/var/www/getxe/data/infotory/news/templates',
 )
-
+#collect static folder
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "files", "static"),
 )
+#static path
+STATIC_ROOT = os.path.join(os.path.expanduser('~'), 'www/getxe.ru/static/infotory')
+STATIC_URL = '/static/infotory/'
+#media path
+MEDIA_ROOT = os.path.join(os.path.expanduser('~'), 'www/getxe.ru/media/infotory')
+MEDIA_URL = '/media/infotory/'
 
-#collect static folder
-STATIC_ROOT = os.path.join(os.path.expanduser('~'), 'www/getxe.ru/static')
-STATIC_URL = '/static/'
-
-MEDIA_ROOT = os.path.join(os.path.expanduser('~'), 'www/getxe.ru/media')
-MEDIA_URL = '/media/'
-
+#TINYMCE SETTINGS
 TINYMCE_JS_URL = os.path.join(MEDIA_ROOT, "tiny_mce/tiny_mce.js")
 TINYMCE_JS_ROOT = os.path.join(MEDIA_ROOT, "tiny_mce")
 TINYMCE_DEFAULT_CONFIG = {

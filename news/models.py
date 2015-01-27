@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*- 
+from django.utils.crypto import get_random_string
 from datetime import datetime  
 from django.db import models
 from django.contrib.auth.models import User
@@ -6,11 +7,14 @@ from events.models import Event
 from tags.models import Tag
 from resources.models import Image, File
 
+def upload_image(instance, filename):     
+    return 'news/images/%s_%s%s' % (filename[:filename.rfind('.')] , get_random_string(length=4), filename[filename.rfind('.'):]) 
+
 class Article(models.Model):
     pub_date = models.DateTimeField(u'Дата публикации', default=datetime.now)
-    title = models.CharField(u'Заголовок', max_length = 40)
+    title = models.CharField(u'Заголовок', max_length = 200)
     full_text = models.TextField(u'Текст')
-    short_text = models.TextField(u'Анотация', max_length = 1000, blank=True)
+    short_text = models.TextField(u'Краткий текст', max_length = 1000, blank=True)
     causer = models.TextField(u'Виновник', max_length = 1000, blank=True)
     place = models.CharField(u'Место проведения', max_length=40, blank=True)
     analysis = models.TextField(u'Анализ', max_length = 1000, blank=True)
@@ -19,6 +23,7 @@ class Article(models.Model):
     votes_sum = models.IntegerField(default=0)
     
     author = models.ForeignKey(User, verbose_name=u'Автор', blank=True, null=True) 
+    header_image = models.ImageField(u'Главная картинка', upload_to=upload_image)
     image = models.ManyToManyField(Image, verbose_name=u'Изображения', blank=True, related_name='articles')
     tag = models.ManyToManyField(Tag, verbose_name=u'Тэги', blank=True, related_name='articles')
     file = models.ManyToManyField(File, verbose_name=u'Файлы', blank=True, related_name='articles')

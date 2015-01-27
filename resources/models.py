@@ -6,10 +6,10 @@ from django.db import models
 from tags.models import Tag
 
 def upload_image(instance, filename):     
-    return '.calendar/images/%s_%s%s' % (filename[:filename.rfind('.')] , get_random_string(length=4), filename[filename.rfind('.'):]) 
+    return 'resources/images/%s_%s%s' % (filename[:filename.rfind('.')] , get_random_string(length=4), filename[filename.rfind('.'):]) 
 
 def upload_file(instance, filename):     
-        return '.calendar/files/%s_%s%s' % (filename[:filename.rfind('.')] , get_random_string(length=4), filename[filename.rfind('.'):]) 
+        return 'resources/files/%s_%s%s' % (filename[:filename.rfind('.')] , get_random_string(length=4), filename[filename.rfind('.'):]) 
 
 class Image(models.Model):
     title = models.CharField(u'Название', max_length=40, blank=True)

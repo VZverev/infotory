@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from infotory.tinymce_settings import js_paths
 from events.models import Event
 from tags.models import Tag
 from news.models import Article
@@ -13,9 +13,6 @@ class AdminEvent(admin.ModelAdmin):
     list_display = ['title', 'desc_short', 'start_date', 'end_date']
     inlines = [ArticleInline]
     class Media:
-        js = (
-            '/static/tiny_mce/tiny_mce.js',
-            '/static/tiny_mce/tiny_mce_init.js',
-        )
+        js = js_paths
     
 admin.site.register(Event,AdminEvent)
