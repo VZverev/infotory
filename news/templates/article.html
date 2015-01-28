@@ -1,35 +1,9 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title %}
 	Новость | {{ entry.title }}
 {% endblock %}
-
-
-	<div>
-		<h1></h1>
-		<small></small>
-
-		<br />
-		Рейтинг:{{entry.get_raiting|safe}}
-		<div>
-			<h3>Комментарии</h3>
-			{% for comment in entry.comments.all %}
-			<div>
-				{% if comment.title %}
-				<h4>{{comment.title}}</h4>
-				{% else %}
-				<h4>Без заголовка</h4>
-				{% endif %}
-				<p>{{comment.text|safe}}</p>
-				<small>Автор: {{comment.author}} Дата: {{comment.pub_date}}</small>
-			</div>
-			{% empty %}
-			<p>Нет комментариев</p>
-			{% endfor %}
-		
-		</div>
-	</div>
-
 
 {% block content %}
    <!-- Blog Content
@@ -41,9 +15,9 @@
         <div class="span8 blog">
 
             <article>
-                <h3 class="title-bg"><a href="{{ entry.pk }}">{{ entry.title }}</a></h3>
+                <h3 class="title-bg">{{ entry.title }}</h3>
                 <div class="post-summary">
-                    <a href="{{ entry.pk }}"><img src="{{ entry.header_image.url }}" alt="Post Thumb"></a>
+                    <img src="{{ entry.header_image.url }}" style="width: 100%; height: 250px;" alt="Post Thumb">
                     {{entry.full_text|safe}}
                     <div class="post-summary-footer">
                         <ul class="post-data">
@@ -90,7 +64,8 @@
                         <img src="img/user-avatar.jpg" alt="Image" />
                         <span class="comment-name">{{comment.author}}</span>
                         <span class="comment-date">{{comment.pub_date}}</span>
-                        <div class="comment-content">{{comment.text|safe}}</div></li>
+                        <div class="comment-content">{{comment.text|safe}}</div>
+                    </li>
                 {% empty %}
 					<h5>Нет комментариев</h5>
 				{% endfor %}
@@ -99,23 +74,15 @@
                 <!-- Comment Form -->
                 <div class="comment-form-container">
                     <h6>Leave a Comment</h6>
-                    <form action="#" id="comment-form">
-                        <div class="input-prepend">
-                            <span class="add-on"><i class="icon-user"></i></span>
-                            <input class="span4" id="prependedInput" size="16" type="text" placeholder="Name">
+                    <form action="/news/{{ entry.pk }}/add_comment/" id="comment-form" method="POST">
+                    	{% csrf_token %}
+                    	<div class="input-title">
+                            {{ form.title }}
                         </div>
-                        <div class="input-prepend">
-                            <span class="add-on"><i class="icon-envelope"></i></span>
-                            <input class="span4" id="prependedInput" size="16" type="text" placeholder="Email Address">
-                        </div>
-                        <div class="input-prepend">
-                            <span class="add-on"><i class="icon-globe"></i></span>
-                            <input class="span4" id="prependedInput" size="16" type="text" placeholder="Website URL">
-                        </div>
-                        <textarea class="span6"></textarea>
+                        {{ form.text }}
                         <div class="row">
                             <div class="span2">
-                                <input type="submit" class="btn btn-inverse" value="Post My Comment">
+                                <input type="submit" id="add_comment_btn" class="btn btn-inverse" value="Post My Comment">
                             </div>
                         </div>
                     </form>
@@ -204,6 +171,6 @@
         </div>
 
     </div>
-    
     </div> <!-- End Container -->
+    <script type="text/javascript" src="{% static "js/news/comments.js" %}">	</script>
 {% endblock %}

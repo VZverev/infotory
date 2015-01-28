@@ -7,4 +7,5 @@ urlpatterns = patterns('',
     # url(r'^blog/', include('blog.urls')),
     url(r'^$', 'news.views.index', name='news'),
     url(r'(?P<id>\d+)/$', 'news.views.details'),
+    url(r'(?P<id>\d+)/add_comment/$', 'news.views.add_comment'),
 )
